@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:openapitodart/openapitodart.dart';
 import 'package:yaml/yaml.dart';
-
-import 'src/openapitodart_impl.dart';
 
 void main(List<String> args) {
   var parser = ArgParser();
@@ -20,12 +19,11 @@ void main(List<String> args) {
   final yaml = File(input).readAsStringSync();
   final y = loadYaml(yaml);
   final openApi = OpenApi.fromMap(y);
-  final r = generateDartCode(openApi, results['server']);
   try {
-    File(results['output']).writeAsStringSync(formatter.format(r));
+    final r = generateDartCode(openApi, results['server']);
+    File(results['output']).writeAsStringSync(r);
   } catch (e) {
     print(e);
-    print(r);
     rethrow;
   }
 }

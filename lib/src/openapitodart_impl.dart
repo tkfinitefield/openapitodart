@@ -690,7 +690,7 @@ class OpenApi {
 }
 
 String generateDartCode(OpenApi openApi, String serverUrl) {
-  return '''
+  final str = '''
 // DO NOT EDIT. AUTO GENERATED FILE.
 import 'dart:async';
 import 'dart:convert';
@@ -903,4 +903,7 @@ ${m.responses.single.isBinary ? '''
 ''').join('')}
 }
 ''';
+
+  print(str);
+  return formatter.format(str);
 }
